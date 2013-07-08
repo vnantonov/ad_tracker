@@ -61,6 +61,13 @@ return array(
             'translator' => 'MvcTranslator',
         ),
     ),
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'paths' => array(
+                __DIR__ . '/../public',
+            ),
+        ),
+    ),
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
