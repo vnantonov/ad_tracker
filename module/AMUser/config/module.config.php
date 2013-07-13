@@ -6,7 +6,7 @@ return array(
             'amuser' => __DIR__ . '/../view',
         ),
     ),
-
+    /*
     'controllers' => array(
         'invokables' => array(
             'amuser' => 'AMUser\Controller\UserController',
@@ -49,5 +49,5 @@ return array(
             ),
         ),
     ),
-
+    */
 );
