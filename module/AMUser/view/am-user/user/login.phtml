@@ -1,1 +1,15 @@
-login
+<?php
+    $form->prepare();
+    $form->setAttribute('action', $this->url('amuser/login'));
+    $form->setAttribute('method', 'post');
+?>
+
+<?php echo $this->form()->openTag($form); ?>
+
+<?php echo $this->formRow($form->get('login')); ?>
+<?php echo $this->formRow($form->get('password')); ?>
+
+<br/>
+<?php echo $this->formSubmit($form->get('submit')); ?>
+
+<?php echo $this->form()->closeTag(); ?>

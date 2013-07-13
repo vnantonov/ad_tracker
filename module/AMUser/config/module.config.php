@@ -13,19 +13,37 @@ return array(
         ),
     ),
 
+    'service_manager' => array(
+        'factories'=> array(
+            'form_login'=> function ($serviceManager) {
+                $form = new AMUser\Form\Login('login_form');
+                return $form;
+            }
+        ),
+    ),
+
     'router' => array(
         'routes' => array(
             'amuser' => array(
-                'type'    => 'segment',
+                'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/user[/][:action][/:id]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ),
+                    'route'    => '/user',
                     'defaults' => array(
                         'controller' => 'amuser',
                         'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'login' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/login',
+                            'defaults' => array(
+                                'controller' => 'amuser',
+                                'action'     => 'login',
+                            ),
+                        ),
                     ),
                 ),
             ),
