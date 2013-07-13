@@ -14,6 +14,15 @@ class UserController extends AbstractActionController {
 
     public function loginAction() {
         $loginForm = $this->getServiceLocator()->get('form_login');
+        $request = $this->getRequest();
+
+
+        if ($request->isPost()) {
+            $loginForm->setData($request->getPost());
+            if ($loginForm->isValid()) {
+                // Autenticate
+            }
+        }
 
         return array(
             'form' => $loginForm
@@ -25,6 +34,10 @@ class UserController extends AbstractActionController {
     }
 
     public function registerAction() {
+
+    }
+
+    protected function autenticate($data) {
 
     }
 }
