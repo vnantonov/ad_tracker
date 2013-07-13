@@ -4,9 +4,9 @@ return array(
     'modules' => array(
         'ZendDeveloperTools',
         'Application',
-//        'AMUser'
         'ZfcBase',
-        'ZfcUser'
+        'ZfcUser',
+        'AMUser'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
