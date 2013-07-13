@@ -27,4 +27,5 @@ return array(
             => 'Zend\Db\Adapter\AdapterServiceFactory',
         ),
     ),
+    'config_cache_enabled' => true,
 );
