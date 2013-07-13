@@ -11,11 +11,50 @@
  * credentials from accidentally being committed into version control.
  */
 
+$dbParams = array(
+    'database'  => 'adtracker',
+    'username'  => 'root',
+    'password'  => '',
+    'hostname'  => 'localhost',
+    // buffer_results - only for mysqli buffered queries, skip for others
+    'options' => array('buffer_results' => true)
+);
+
 return array(
+//    'db' => array(
+//        'dsn'            => 'mysql:dbname=adtracker;host=localhost',
+//        'username' => 'root',
+//        'password' => ''
+//    ),
+
+    'service_manager' => array(
+        'factories' => array(
+            'Zend\Db\Adapter\Adapter' => function ($sm) use ($dbParams) {
+                $adapter = new BjyProfiler\Db\Adapter\ProfilingAdapter(array(
+                    'driver'    => 'pdo',
+                    'dsn'       => 'mysql:dbname='.$dbParams['database'].';host='.$dbParams['hostname'],
+                    'database'  => $dbParams['database'],
+                    'username'  => $dbParams['username'],
+                    'password'  => $dbParams['password'],
+                    'hostname'  => $dbParams['hostname'],
+                ));
+
+                $adapter->setProfiler(new BjyProfiler\Db\Profiler\Profiler);
+                if (isset($dbParams['options']) && is_array($dbParams['options'])) {
+                    $options = $dbParams['options'];
+                } else {
+                    $options = array();
+                }
+                $adapter->injectProfilingStatementPrototype($options);
+                return $adapter;
+            },
+        ),
+    ),
+
     // Whether or not to enable a configuration cache.
     // If enabled, the merged configuration will be cached and used in
     // subsequent requests.
-    //'config_cache_enabled' => false,
+    'config_cache_enabled' => false,
     // The key used to create the configuration cache file name.
     //'config_cache_key' => 'module_config_cache',
     // The path in which to cache merged configuration.
