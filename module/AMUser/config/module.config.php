@@ -6,19 +6,33 @@ return array(
             'amuser' => __DIR__ . '/../view',
         ),
     ),
-    /*
+
     'controllers' => array(
         'invokables' => array(
             'amuser' => 'AMUser\Controller\UserController',
+            'ampermission' => 'AMUser\Controller\PermissionController'
         ),
     ),
 
+//    'service_manager' => array(
+//        'factories'=> array(
+//            'form_login'=> function ($serviceManager) {
+//                $form = new AMUser\Form\Login('login_form');
+//                return $form;
+//            }
+//        ),
+//    ),
+
     'service_manager' => array(
-        'factories'=> array(
-            'form_login'=> function ($serviceManager) {
-                $form = new AMUser\Form\Login('login_form');
-                return $form;
-            }
+        'factories' => array(
+            'user_mapper' => function ($sm) {
+                $mapper = new AMUser\Mapper\User();
+                $mapper->setDbAdapter($sm->get('Zend\Db\Adapter\Adapter'));
+                $mapper->setEntityPrototype(new \ZfcUser\Entity\User());
+                //                $mapper->setHydrator(new Mapper\UserHydrator());
+                //                $mapper->setTableName($options->getTableName());
+                return $mapper;
+            },
         ),
     ),
 
@@ -27,7 +41,7 @@ return array(
             'amuser' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/user',
+                    'route'    => '/am-user',
                     'defaults' => array(
                         'controller' => 'amuser',
                         'action'     => 'index',
@@ -35,19 +49,29 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'login' => array(
+                    'permission' => array(
                         'type' => 'Literal',
-                        'options' => array(
-                            'route' => '/login',
-                            'defaults' => array(
-                                'controller' => 'amuser',
-                                'action'     => 'login',
+                        'options'=> array(
+                            'route' => '/permission',
+                            'defaults'=> array(
+                                'controller' => 'ampermission',
+                                'action' => 'index'
                             ),
                         ),
                     ),
+//                    'login' => array(
+//                        'type' => 'Literal',
+//                        'options' => array(
+//                            'route' => '/login',
+//                            'defaults' => array(
+//                                'controller' => 'amuser',
+//                                'action'     => 'login',
+//                            ),
+//                        ),
+//                    ),
                 ),
             ),
         ),
     ),
-    */
+
 );

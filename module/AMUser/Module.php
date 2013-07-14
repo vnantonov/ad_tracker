@@ -66,4 +66,14 @@ class Module {
     {
         return include __DIR__ . '/config/module.config.php';
     }
+
+    public function getViewHelperConfig() {
+        return array(
+            'factories' => array(
+                'widgetUserList'=> function ($serviceManager) {
+                    return new \AMUser\View\Helper\UserList($serviceManager->getServiceLocator()->get('user_mapper'));
+                }
+            )
+        );
+    }
 }
