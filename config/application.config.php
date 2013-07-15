@@ -7,6 +7,7 @@ return array(
         'Application',
         'ZfcBase',
         'ZfcUser',
+        'ZfcRbac',
         'AMUser'
     ),
 
